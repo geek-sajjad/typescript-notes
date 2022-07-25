@@ -113,3 +113,67 @@ const subtract = (a: number, b: number): number => {
   // a -b;
   return a - b;
 };
+
+// void and never return types:
+
+const throwError = (message: string): never => {
+  throw new Error(message);
+};
+
+// if we expected to return string and possible throw error, it's ok to annotate the return
+// type to string;
+const throwError2 = (message: string): string => {
+  if (!message) {
+    throw new Error(message);
+  }
+  return message;
+};
+const throwError3 = (message: string): void => {
+  if (!message) {
+    throw new Error(message);
+  }
+};
+
+// Destructuring with annotation
+const todayForecast = {
+  date: new Date(),
+  weather: 'sunny',
+};
+
+const logWeather = (forecast: { date: Date; weather: string }): void => {
+  console.log(forecast.date, forecast.weather);
+};
+
+logWeather(todayForecast);
+
+// ES2015 Destructuring
+const logWeather2 = ({
+  weather,
+  date,
+}: {
+  date: Date;
+  weather: string;
+}): void => {
+  console.log(date, weather);
+};
+
+// ------------Objects----------------
+const profile = {
+  name: 'alex',
+  age: 20,
+
+  coords: {
+    lng: 22,
+    lat: 41,
+  },
+
+  setAge(age: number): void {
+    this.age = age;
+  },
+};
+
+const { age }: { age: number } = profile;
+
+const {
+  coords: { lat, lng },
+}: { coords: { lat: number; lng: number } } = profile;
